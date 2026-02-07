@@ -227,8 +227,6 @@ linkedinInput.addEventListener('input', () => {
 // ===========================================
 
 async function runTimeMachine(prenom) {
-  const startTime = Date.now();
-  const minDuration = 28000; // 28 seconds minimum
   const years = Object.keys(breakingNews).map(Number);
   const totalYears = years.length;
 
@@ -266,14 +264,8 @@ async function runTimeMachine(prenom) {
       progressText.textContent = 'Atterrissage en 2036...';
     }
 
-    // Wait before next year (4s per year to allow reading)
-    await sleep(4000);
-  }
-
-  // Ensure minimum duration
-  const elapsed = Date.now() - startTime;
-  if (elapsed < minDuration) {
-    await sleep(minDuration - elapsed);
+    // 2s per year (~14s total animation)
+    await sleep(2000);
   }
 }
 
@@ -417,11 +409,11 @@ form.addEventListener('submit', async (e) => {
   showPage('timemachine');
 
   try {
-    // Run time machine and API calls in parallel
-    const [_, scrapedData] = await Promise.all([
-      runTimeMachine(state.formData.prenom),
-      scrapeLinkedIn(linkedinUrl)
-    ]);
+    // Start animation
+    const animationPromise = runTimeMachine(state.formData.prenom);
+
+    // Scrape LinkedIn profile (runs in parallel with animation)
+    const scrapedData = await scrapeLinkedIn(linkedinUrl);
 
     // Validate name match
     const person = scrapedData.person;
@@ -443,8 +435,11 @@ form.addEventListener('submit', async (e) => {
       currentPosition: person.positions?.positionHistory?.[0]
     };
 
-    // Generate post
-    const postResult = await generatePost(state.currentLevel);
+    // Generate post IN PARALLEL with remaining animation
+    const [postResult] = await Promise.all([
+      generatePost(state.currentLevel),
+      animationPromise
+    ]);
     state.postData = postResult;
 
     // Display result
