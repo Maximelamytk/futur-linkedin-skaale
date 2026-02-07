@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn 2036 — Générateur de Post du Futur | Skaale</title>
+  <meta name="description" content="Découvrez à quoi ressemblera votre post LinkedIn en 2036. Voyage dans le temps garanti dystopique.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="LinkedIn 2036 — Générateur de Post du Futur">
+  <meta property="og:description" content="Découvrez à quoi ressemblera votre post LinkedIn en 2036. Voyage dans le temps garanti dystopique.">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo-skaale/icon star.png">
+</head>
+<body>
+
+  <!-- ==================== PAGE 0: HOMEPAGE ==================== -->
+  <section id="page-home" class="page active">
+    <header class="header">
+      <div class="header-left">
+        <a href="https://skaale.fr" target="_blank" class="logo-link">
+          <img src="assets/logo-skaale/Frame 24-1.png" alt="Skaale" class="logo">
+        </a>
+        <span class="edition-badge">2036 EDITION</span>
+      </div>
+      <a href="https://skaale.fr" target="_blank" class="made-by">
+        <span>Made by</span>
+        <img src="assets/logo-skaale/Frame 24.png" alt="Skaale" class="made-by-logo">
+      </a>
+    </header>
+
+    <main class="hero hero-home">
+      <div class="hero-content">
+        <div class="badge-future">
+          <span class="badge-dot"></span>
+          <span>TRANSMISSION DEPUIS LE FUTUR</span>
+        </div>
+
+        <h1 class="title-home">
+          À QUOI RESSEMBLERA<br>
+          <span class="title-year">LINKEDIN EN 2036 ?</span>
+        </h1>
+
+        <div class="tagline-container">
+          <span class="tagline-label">Extrait de ton futur post :</span>
+          <div class="tagline-box">
+            <span class="tagline-text" id="tagline-text"></span>
+            <span class="tagline-cursor">|</span>
+          </div>
+        </div>
+
+        <p class="subtitle-home">Voyage dans le temps et découvre ton post LinkedIn<br>dans un futur dystopique. <strong>Spoiler : c'est terrifiant.</strong></p>
+
+        <button class="btn-voyage" id="btn-start">
+          <span class="btn-voyage-text">Voyager vers 2036</span>
+          <span class="btn-voyage-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </span>
+        </button>
+
+        <p class="eco-notice">Ce voyage temporel est certifié sans impact carbone. (fusée électrique)</p>
+
+        <div class="home-footer">
+          <a href="https://www.linkedin.com/in/alexisvidal/" target="_blank" class="creator-link">
+            <svg class="linkedin-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <span class="creator-text">Suivre Alexis Vidal sur LinkedIn</span>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Background effects -->
+    <div class="home-grid"></div>
+    <div class="home-glow"></div>
+  </section>
+
+  <!-- ==================== PAGE 1: FORMULAIRE ==================== -->
+  <section id="page-form" class="page">
+    <header class="header">
+      <div class="header-left">
+        <a href="https://skaale.fr" target="_blank" class="logo-link">
+          <img src="assets/logo-skaale/Frame 24-1.png" alt="Skaale" class="logo">
+        </a>
+        <span class="edition-badge">2036 EDITION</span>
+      </div>
+      <button class="btn-back" id="btn-back-home">← Retour</button>
+    </header>
+
+    <main class="hero">
+      <div class="hero-content">
+        <div class="form-header">
+          <span class="step-badge">ÉTAPE 1/2</span>
+          <h2 class="form-title">Dis-nous en plus sur toi</h2>
+          <p class="form-subtitle">On a besoin de quelques infos pour générer ton post du futur</p>
+        </div>
+
+        <form id="linkedin-form" class="form">
+          <!-- Required fields -->
+          <div class="form-section">
+            <div class="input-row">
+              <div class="input-wrapper">
+                <input type="text" id="prenom" placeholder="Ton prénom" required>
+              </div>
+              <div class="input-wrapper">
+                <input type="text" id="nom" placeholder="Ton nom" required>
+              </div>
+            </div>
+
+            <div class="input-wrapper">
+              <input type="text" id="metier" placeholder="Ton métier actuel (Ex: Commercial SaaS, Coach, Dev...)" required>
+            </div>
+
+            <div class="input-wrapper" id="linkedin-wrapper">
+              <input type="url" id="linkedin" placeholder="https://www.linkedin.com/in/ton-profil/" required>
+              <span class="input-icon" id="linkedin-icon"></span>
+            </div>
+            <span class="input-hint">Clique sur ton profil et donne nous le lien dans le bon format sinon ça ne pourra pas marcher !</span>
+            <span class="input-error" id="linkedin-error"></span>
+          </div>
+
+          <!-- Optional fields -->
+          <div class="form-section optional-section">
+            <div class="optional-header">
+              <span class="optional-badge">OPTIONNEL</span>
+              <span class="optional-text">Pour un post encore plus personnalisé</span>
+            </div>
+
+            <div class="optional-fields">
+              <div class="input-wrapper small">
+                <input type="text" id="delire" placeholder="C'est quoi ton délire du moment ? (IA, crypto, remote...)">
+              </div>
+              <div class="input-wrapper small">
+                <input type="text" id="ambition" placeholder="Ta plus grande ambition secrète ? (TED talk, 100K abonnés...)">
+              </div>
+              <div class="input-wrapper small">
+                <input type="text" id="truc-pas-assume" placeholder="Un truc que t'assumes pas trop ? (Je like mes propres posts...)">
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary btn-submit" id="submit-btn">
+            <span>Lancer le voyage temporel</span>
+            <span class="btn-icon">🚀</span>
+          </button>
+        </form>
+      </div>
+    </main>
+  </section>
+
+  <!-- ==================== PAGE 2: MACHINE TEMPORELLE ==================== -->
+  <section id="page-timemachine" class="page">
+    <div class="timemachine-container">
+      <!-- Header -->
+      <div class="tm-header">
+        <div class="tm-title">
+          <span class="tm-icon">⚡</span>
+          MACHINE TEMPORELLE LINKEDIN
+          <span class="tm-icon">⚡</span>
+        </div>
+        <div class="tm-destination">Destination : <span class="destination-year">2036</span></div>
+      </div>
+
+      <!-- Main display -->
+      <div class="tm-display">
+        <!-- Year counter -->
+        <div class="year-counter">
+          <div class="year-display" id="year-display">2030</div>
+        </div>
+
+        <!-- Gauges -->
+        <div class="gauges-container">
+          <div class="gauge" id="gauge-cringe">
+            <div class="gauge-fill"></div>
+            <div class="gauge-needle"></div>
+            <span class="gauge-label">CRINGE</span>
+          </div>
+          <div class="gauge" id="gauge-bullshit">
+            <div class="gauge-fill"></div>
+            <div class="gauge-needle"></div>
+            <span class="gauge-label">BULLSHIT</span>
+          </div>
+          <div class="gauge" id="gauge-ego">
+            <div class="gauge-fill"></div>
+            <div class="gauge-needle"></div>
+            <span class="gauge-label">EGO</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Breaking News -->
+      <div class="breaking-news" id="breaking-news">
+        <div class="bn-badge">
+          <span class="bn-dot"></span>
+          BREAKING NEWS <span id="bn-year">2030</span>
+        </div>
+        <p class="bn-text" id="bn-text">La France instaure le RSA Créateur de Contenu. Condition : minimum 3 posts inspirants par semaine.</p>
+      </div>
+
+      <!-- Timeline -->
+      <div class="timeline">
+        <div class="timeline-track">
+          <div class="timeline-progress" id="timeline-progress"></div>
+        </div>
+        <div class="timeline-labels">
+          <span>2030</span>
+          <span>2036</span>
+        </div>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="tm-progress">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <span class="progress-text" id="progress-text">Voyage temporel en cours...</span>
+      </div>
+    </div>
+
+    <!-- Background effects -->
+    <div class="tm-grid-bg"></div>
+    <div class="scan-line"></div>
+  </section>
+
+  <!-- ==================== PAGE 3: RÉSULTAT ==================== -->
+  <section id="page-result" class="page">
+    <header class="header">
+      <a href="https://skaale.fr" target="_blank" class="logo-link">
+        <img src="assets/logo-skaale/Frame 24-1.png" alt="Skaale" class="logo">
+      </a>
+      <span class="edition-badge">2036 EDITION</span>
+    </header>
+
+    <div class="result-container">
+      <!-- LinkedIn Profile Card 2036 -->
+      <div class="linkedin-card-2036">
+        <div class="lc-banner" id="profile-banner"></div>
+
+        <div class="lc-main">
+          <div class="lc-header">
+            <div class="lc-photo-wrapper">
+              <img src="" alt="" class="lc-photo" id="profile-photo">
+            </div>
+            <div class="lc-info">
+              <h2 class="lc-name" id="profile-name">Prénom Nom</h2>
+              <p class="lc-headline" id="profile-headline">Headline 2036</p>
+              <p class="lc-meta">📍 Métavers LinkedIn · 15 mars 2036</p>
+            </div>
+          </div>
+
+          <div class="lc-post">
+            <p class="post-accroche" id="post-accroche"></p>
+            <div class="post-corps" id="post-corps"></div>
+            <p class="post-cta" id="post-cta"></p>
+          </div>
+
+          <div class="lc-stats">
+            <span class="stat">👍 <span id="stat-likes">1,247</span></span>
+            <span class="stat">💬 <span id="stat-comments">347</span></span>
+            <span class="stat">🔄 <span id="stat-shares">892</span></span>
+            <span class="stat">📤 <span id="stat-sends">234</span></span>
+          </div>
+
+          <div class="lc-comments" id="comments-container">
+            <!-- Comments will be inserted here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit zone -->
+      <div class="edit-zone">
+        <label class="edit-label">Modifie ton post si tu veux :</label>
+        <textarea id="post-textarea" class="post-textarea"></textarea>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="action-buttons">
+        <button class="btn-copy" id="btn-copy">
+          <span>📋</span>
+          <span>Copier le post</span>
+        </button>
+        <button class="btn-primary" id="btn-next">
+          <span>Suivant</span>
+          <span class="btn-arrow">→</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PAGE 4: OFFRES ==================== -->
+  <section id="page-offers" class="page">
+    <header class="header">
+      <a href="https://skaale.fr" target="_blank" class="logo-link">
+        <img src="assets/logo-skaale/Frame 24-1.png" alt="Skaale" class="logo">
+      </a>
+    </header>
+
+    <div class="offers-container">
+      <div class="offers-hero">
+        <h2 class="offers-title">Rigoler c'est bien, mais LinkedIn peut devenir<br><span class="highlight">ton canal d'acquisition N°1</span></h2>
+        <p class="offers-subtitle">Comment ? Contenu, prospection, community management.</p>
+      </div>
+
+      <div class="offers-grid">
+        <!-- Offer 1 -->
+        <div class="offer-card">
+          <div class="offer-header">
+            <h3 class="offer-name">Contenu + CM</h3>
+            <div class="offer-price">
+              <span class="price">1 800€</span>
+              <span class="period">/mois</span>
+            </div>
+          </div>
+          <ul class="offer-features">
+            <li><span class="check">✓</span> 3-5 posts LinkedIn / semaine (texte + infographie/carrousel/photos)</li>
+            <li><span class="check">✓</span> Community Management Français 5 jours / 7</li>
+            <li><span class="check">✓</span> Campagne d'ajouts ciblés sur votre ICP</li>
+          </ul>
+          <a href="https://calendly.com/alexis-skaale/linkedln" target="_blank" class="btn-offer">En savoir plus</a>
+        </div>
+
+        <!-- Offer 2 -->
+        <div class="offer-card popular">
+          <span class="popular-badge">POPULAIRE</span>
+          <div class="offer-header">
+            <h3 class="offer-name">Contenu + Prospection + CM</h3>
+            <div class="offer-price">
+              <span class="price">2 800€</span>
+              <span class="period">/mois</span>
+            </div>
+          </div>
+          <ul class="offer-features">
+            <li><span class="check">✓</span> 3-5 posts LinkedIn / semaine (texte + infographie/carrousel/photos)</li>
+            <li><span class="check">✓</span> Prospection 5 jours / 7</li>
+            <li><span class="check">✓</span> Gestion des conversations jusqu'au RDV booké</li>
+            <li><span class="check">✓</span> Community Management Français 5 jours / 7</li>
+          </ul>
+          <a href="https://calendly.com/alexis-skaale/linkedln" target="_blank" class="btn-offer">En savoir plus</a>
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="simulator-cta">
+        <p class="simulator-title">À votre avis, <strong>combien de rendez-vous par mois</strong> peut vous générer une bonne stratégie LinkedIn ?</p>
+        <a href="https://skaale.fr/" target="_blank" class="btn-simulator">
+          <span>Faire le test →</span>
+        </a>
+      </div>
+
+      <!-- Team Section -->
+      <div class="team-section">
+        <div class="team-header">
+          <h3 class="team-title">La team Skaale s'occupe de tout pour vous</h3>
+          <p class="team-subtitle">Nos bureaux sont basés à Hyères ☀️</p>
+        </div>
+
+        <img src="assets/team-skaale.jpg" alt="L'équipe Skaale" class="team-photo">
+
+        <div class="team-description">
+          <p class="team-roles">
+            <strong>Laura</strong> s'occupe de vos designs, <strong>Virgile</strong> s'occupe du copywriting de vos posts, <strong>Manon</strong> de gérer vos commentaires, <strong>Lisa</strong> de prospecter vos cibles.
+          </p>
+          <p class="team-founders">
+            <strong>Maxime Lamy</strong> et <strong>Alexis Vidal</strong> chapotent le tout. (On vous jure qu'ils bossent aussi)
+          </p>
+        </div>
+
+        <a href="https://calendly.com/alexis-skaale/linkedln" target="_blank" class="btn-team-cta">
+          <span>Discuter de votre stratégie</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+
+      <footer class="footer">
+        <p>Fait avec ❤️ par Skaale · 2025</p>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ==================== ERROR MODAL ==================== -->
+  <div class="modal" id="error-modal">
+    <div class="modal-content">
+      <button class="modal-close" id="btn-modal-close">✕</button>
+      <div class="modal-icon-wrapper">
+        <div class="modal-icon-glow"></div>
+        <span class="modal-icon">😱</span>
+      </div>
+      <h3 class="modal-title" id="error-title"></h3>
+      <p class="modal-subtitle" id="error-subtitle"></p>
+      <button class="btn-primary btn-retry" id="btn-retry">
+        <span>Recommencer</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 2v6h-6"></path>
+          <path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path>
+          <path d="M3 22v-6h6"></path>
+          <path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
