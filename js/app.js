@@ -264,8 +264,8 @@ async function runTimeMachine(prenom) {
       progressText.textContent = 'Atterrissage en 2036...';
     }
 
-    // 2s per year (~14s total animation)
-    await sleep(2000);
+    // 3s per year (~21s total) — enough to read each breaking news
+    await sleep(3000);
   }
 }
 
