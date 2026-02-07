@@ -351,15 +351,15 @@ function displayResult() {
   document.getElementById('stat-shares').textContent = randomBetween(500, 1000);
   document.getElementById('stat-sends').textContent = randomBetween(100, 300);
 
-  // Comments with robot profile pictures
+  // Comments with robot profile pictures (inline SVG, no external dependency)
   commentsContainer.innerHTML = '';
   if (postData.commentaires && postData.commentaires.length > 0) {
     postData.commentaires.forEach((comment, index) => {
       const commentEl = document.createElement('div');
       commentEl.className = 'lc-comment';
-      const robotSeed = encodeURIComponent(comment.nom + index);
+      const robotSrc = generateRobotSvg(comment.nom + index);
       commentEl.innerHTML = `
-        <img class="comment-avatar-img" src="https://robohash.org/${robotSeed}?size=64x64&set=set1" alt="${comment.nom}">
+        <img class="comment-avatar-img" src="${robotSrc}" alt="${comment.nom}">
         <div class="comment-content">
           <div class="comment-name">${comment.nom} · 2036</div>
           <div class="comment-text">${comment.texte}</div>
@@ -521,6 +521,56 @@ errorModal.addEventListener('click', (e) => {
     showPage('form');
   }
 });
+
+// ===========================================
+// ROBOT AVATAR GENERATOR
+// ===========================================
+
+function generateRobotSvg(seed) {
+  // Simple hash from string
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    hash = ((hash << 5) - hash) + seed.charCodeAt(i);
+    hash |= 0;
+  }
+  hash = Math.abs(hash);
+
+  const colors = ['#00e5ff', '#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#ff6392', '#c084fc', '#f7883e'];
+  const bodyColor = colors[hash % colors.length];
+  const eyeColor = colors[(hash + 3) % colors.length];
+  const antennaColor = colors[(hash + 5) % colors.length];
+
+  // Vary features based on hash
+  const eyeStyle = hash % 3; // 0=round, 1=square, 2=visor
+  const mouthStyle = hash % 4;
+  const hasAntenna = hash % 2 === 0;
+
+  let eyes = '';
+  if (eyeStyle === 0) {
+    eyes = `<circle cx="20" cy="28" r="4" fill="${eyeColor}"/><circle cx="36" cy="28" r="4" fill="${eyeColor}"/>`;
+  } else if (eyeStyle === 1) {
+    eyes = `<rect x="17" y="25" width="7" height="7" rx="1" fill="${eyeColor}"/><rect x="32" y="25" width="7" height="7" rx="1" fill="${eyeColor}"/>`;
+  } else {
+    eyes = `<rect x="14" y="26" width="28" height="6" rx="3" fill="${eyeColor}" opacity="0.9"/>`;
+  }
+
+  let mouth = '';
+  if (mouthStyle === 0) {
+    mouth = `<rect x="22" y="37" width="12" height="3" rx="1.5" fill="${eyeColor}" opacity="0.6"/>`;
+  } else if (mouthStyle === 1) {
+    mouth = `<path d="M22 37 Q28 42 34 37" stroke="${eyeColor}" stroke-width="2" fill="none" opacity="0.6"/>`;
+  } else if (mouthStyle === 2) {
+    mouth = `<rect x="20" y="36" width="4" height="4" rx="1" fill="${eyeColor}" opacity="0.5"/><rect x="26" y="36" width="4" height="4" rx="1" fill="${eyeColor}" opacity="0.5"/><rect x="32" y="36" width="4" height="4" rx="1" fill="${eyeColor}" opacity="0.5"/>`;
+  } else {
+    mouth = `<path d="M22 40 Q28 36 34 40" stroke="${eyeColor}" stroke-width="2" fill="none" opacity="0.6"/>`;
+  }
+
+  const antenna = hasAntenna
+    ? `<line x1="28" y1="10" x2="28" y2="2" stroke="${antennaColor}" stroke-width="2"/><circle cx="28" cy="2" r="3" fill="${antennaColor}"/>`
+    : `<rect x="22" y="7" width="12" height="4" rx="2" fill="${antennaColor}"/>`;
+
+  return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56"><rect width="56" height="56" rx="28" fill="#1a1a2e"/>${antenna}<rect x="12" y="14" width="32" height="30" rx="6" fill="${bodyColor}"/><rect x="8" y="24" width="6" height="10" rx="3" fill="${bodyColor}" opacity="0.7"/><rect x="42" y="24" width="6" height="10" rx="3" fill="${bodyColor}" opacity="0.7"/>${eyes}${mouth}</svg>`)}`;
+}
 
 // ===========================================
 // HOMEPAGE ANIMATIONS
