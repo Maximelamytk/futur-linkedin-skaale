@@ -1127,6 +1127,15 @@ body {
   flex-shrink: 0;
 }
 
+.comment-avatar-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: rgba(0, 229, 255, 0.1);
+}
+
 .comment-content {
   flex: 1;
 }
@@ -1144,43 +1153,36 @@ body {
   line-height: 1.4;
 }
 
-/* Edit zone */
-.edit-zone {
-  margin-bottom: 24px;
-}
-
-.edit-label {
-  display: block;
-  font-size: 13px;
-  color: var(--text-muted);
-  margin-bottom: 10px;
-}
-
-.post-textarea {
-  width: 100%;
-  min-height: 180px;
-  padding: 16px;
-  background: var(--bg-input);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-md);
-  color: var(--text-primary);
-  font-size: 14px;
-  font-family: inherit;
-  line-height: 1.6;
-  resize: vertical;
-  transition: all var(--transition);
-}
-
-.post-textarea:focus {
-  outline: none;
-  border-color: var(--neon-cyan);
+/* Post editing mode */
+.lc-post.editing {
+  border: 1px solid var(--neon-cyan);
   box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.1);
+  border-radius: var(--radius-md);
+}
+
+.lc-post.editing .post-accroche,
+.lc-post.editing .post-corps,
+.lc-post.editing .post-cta {
+  outline: none;
+  cursor: text;
+}
+
+.lc-post.editing .post-accroche:focus,
+.lc-post.editing .post-corps:focus,
+.lc-post.editing .post-cta:focus {
+  background: rgba(0, 229, 255, 0.04);
+  border-radius: 4px;
 }
 
 /* Action buttons */
 .action-buttons {
   display: flex;
   flex-direction: column;
+  gap: 12px;
+}
+
+.action-buttons-row {
+  display: flex;
   gap: 12px;
 }
 
@@ -1231,11 +1233,40 @@ body {
   font-family: inherit;
   cursor: pointer;
   transition: all var(--transition);
+  flex: 1;
 }
 
 .btn-copy:hover {
   background: rgba(255, 255, 255, 0.04);
   border-color: rgba(255, 255, 255, 0.12);
+}
+
+.btn-edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background: var(--bg-input);
+  border: 1px solid rgba(0, 229, 255, 0.15);
+  color: var(--neon-cyan);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--transition);
+  flex: 1;
+}
+
+.btn-edit:hover {
+  background: rgba(0, 229, 255, 0.06);
+  border-color: rgba(0, 229, 255, 0.3);
+}
+
+.btn-edit.editing {
+  background: rgba(0, 229, 255, 0.1);
+  border-color: var(--neon-cyan);
 }
 
 .btn-arrow {
@@ -1244,6 +1275,24 @@ body {
 
 .btn-primary:hover .btn-arrow {
   transform: translateX(4px);
+}
+
+/* Suivant button glow effect */
+.btn-next-glow {
+  width: 100%;
+  padding: 18px 28px;
+  font-size: 16px;
+  animation: next-glow-pulse 2s ease-in-out infinite;
+  position: relative;
+}
+
+@keyframes next-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 4px 20px rgba(247, 136, 62, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 32px rgba(247, 136, 62, 0.55), 0 0 60px rgba(247, 136, 62, 0.2);
+  }
 }
 
 /* ===========================================
@@ -1396,6 +1445,29 @@ body {
   color: white;
 }
 
+/* Exemples clients CTA */
+.examples-cta {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.examples-text {
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+.examples-link {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.examples-link:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
 /* Simulator CTA */
 .simulator-cta {
   text-align: center;
@@ -1498,6 +1570,13 @@ body {
   font-weight: 600;
 }
 
+.team-founders-note {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 4px;
+}
+
 .btn-team-cta {
   display: inline-flex;
   align-items: center;
@@ -1525,6 +1604,11 @@ body {
   padding: 24px;
   color: var(--text-muted);
   font-size: 13px;
+}
+
+.footer-year-old {
+  text-decoration: line-through;
+  opacity: 0.5;
 }
 
 /* ===========================================
@@ -1687,12 +1771,34 @@ body {
     height: 80px;
   }
 
+  .lc-stats {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .action-buttons-row {
+    flex-direction: column;
+  }
+
   .offers-grid {
     grid-template-columns: 1fr;
   }
 
   .team-section {
     padding: 32px 20px;
+  }
+
+  .tagline-box {
+    max-width: 100%;
+    word-break: break-word;
+  }
+
+  .lc-main {
+    padding: 0 16px 16px;
+  }
+
+  .lc-post {
+    padding: 16px;
   }
 }
 

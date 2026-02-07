@@ -52,8 +52,8 @@ const postAccroche = document.getElementById('post-accroche');
 const postCorps = document.getElementById('post-corps');
 const postCta = document.getElementById('post-cta');
 const commentsContainer = document.getElementById('comments-container');
-const postTextarea = document.getElementById('post-textarea');
 const btnCopy = document.getElementById('btn-copy');
+const btnEdit = document.getElementById('btn-edit');
 const btnNext = document.getElementById('btn-next');
 
 // Modal elements
@@ -345,24 +345,21 @@ function displayResult() {
   postCorps.textContent = postData.post.corps;
   postCta.textContent = postData.post.cta;
 
-  // Full post for textarea
-  const fullPost = `${postData.post.accroche}\n\n${postData.post.corps}\n\n${postData.post.cta}`;
-  postTextarea.value = fullPost;
-
   // Random stats
   document.getElementById('stat-likes').textContent = randomBetween(1000, 2000).toLocaleString();
   document.getElementById('stat-comments').textContent = randomBetween(200, 500);
   document.getElementById('stat-shares').textContent = randomBetween(500, 1000);
   document.getElementById('stat-sends').textContent = randomBetween(100, 300);
 
-  // Comments
+  // Comments with robot profile pictures
   commentsContainer.innerHTML = '';
   if (postData.commentaires && postData.commentaires.length > 0) {
-    postData.commentaires.forEach(comment => {
+    postData.commentaires.forEach((comment, index) => {
       const commentEl = document.createElement('div');
       commentEl.className = 'lc-comment';
+      const robotSeed = encodeURIComponent(comment.nom + index);
       commentEl.innerHTML = `
-        <div class="comment-avatar">${comment.nom.charAt(0)}</div>
+        <img class="comment-avatar-img" src="https://robohash.org/${robotSeed}?size=64x64&set=set1" alt="${comment.nom}">
         <div class="comment-content">
           <div class="comment-name">${comment.nom} · 2036</div>
           <div class="comment-text">${comment.texte}</div>
@@ -371,6 +368,15 @@ function displayResult() {
       commentsContainer.appendChild(commentEl);
     });
   }
+
+  // Reset edit mode
+  const lcPost = document.querySelector('.lc-post');
+  lcPost.classList.remove('editing');
+  postAccroche.contentEditable = 'false';
+  postCorps.contentEditable = 'false';
+  postCta.contentEditable = 'false';
+  btnEdit.querySelector('span:last-child').textContent = 'Modifier le post';
+  btnEdit.classList.remove('editing');
 
   showPage('result');
 }
@@ -453,10 +459,11 @@ form.addEventListener('submit', async (e) => {
   }
 });
 
-// Copy button
+// Copy button — copies from the post content directly
 btnCopy.addEventListener('click', async () => {
   try {
-    await navigator.clipboard.writeText(postTextarea.value);
+    const fullPost = `${postAccroche.textContent}\n\n${postCorps.textContent}\n\n${postCta.textContent}`;
+    await navigator.clipboard.writeText(fullPost);
     btnCopy.querySelector('span:last-child').textContent = 'Copié !';
 
     setTimeout(() => {
@@ -464,6 +471,31 @@ btnCopy.addEventListener('click', async () => {
     }, 2000);
   } catch (error) {
     console.error('Copy failed:', error);
+  }
+});
+
+// Edit button — toggle contentEditable on post elements
+btnEdit.addEventListener('click', () => {
+  const lcPost = document.querySelector('.lc-post');
+  const isEditing = lcPost.classList.contains('editing');
+
+  if (isEditing) {
+    // Save & exit edit mode
+    lcPost.classList.remove('editing');
+    postAccroche.contentEditable = 'false';
+    postCorps.contentEditable = 'false';
+    postCta.contentEditable = 'false';
+    btnEdit.querySelector('span:last-child').textContent = 'Modifier le post';
+    btnEdit.classList.remove('editing');
+  } else {
+    // Enter edit mode
+    lcPost.classList.add('editing');
+    postAccroche.contentEditable = 'true';
+    postCorps.contentEditable = 'true';
+    postCta.contentEditable = 'true';
+    btnEdit.querySelector('span:last-child').textContent = 'Valider';
+    btnEdit.classList.add('editing');
+    postAccroche.focus();
   }
 });
 
