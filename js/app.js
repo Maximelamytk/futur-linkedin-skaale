@@ -397,6 +397,23 @@ form.addEventListener('submit', async (e) => {
     trucPasAssume: document.getElementById('truc-pas-assume').value.trim()
   };
 
+  // Send lead to Google Sheet (fire-and-forget)
+  const sheetData = {
+    prenom: state.formData.prenom,
+    nom: state.formData.nom,
+    metier: state.formData.metier,
+    linkedin: state.formData.linkedin,
+    delire: state.formData.delire,
+    ambition: state.formData.ambition,
+    assume_pas: state.formData.trucPasAssume
+  };
+  fetch('https://script.google.com/macros/s/AKfycbw5R13hfAUtwa4e_Ru8WSW0VSVa-5NfpTx43aDPmjGVY-5xngK6Utv5ocEAPjDOP3PW/exec', {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify(sheetData)
+  }).catch(() => {});
+
   // Reset state
   state.currentLevel = 1;
   state.regenerationCount = 0;
